@@ -4,6 +4,9 @@
 <script>
 // Chuyển tiếp mã uỷ quyền về ứng dụng chạy trên máy của chủ sở hữu (localhost); trang này không lưu hay gửi dữ liệu đi nơi khác.
 var q = location.search;
-if (q) location.replace('http://localhost:8787/callback' + q);
+var s = new URLSearchParams(q).get('state') || '';
+var m = s.match(/^(\d{2,5})-/);
+var port = m ? m[1] : '8787';
+if (q) location.replace('http://localhost:' + port + '/callback' + q);
 else document.getElementById('m').textContent = 'Trang này nhận kết quả đăng nhập TikTok. / This page receives the TikTok login result.';
 </script></body></html>
