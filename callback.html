@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Thế Cờ Hay - Kết nối TikTok</title></head><body style="font:16px/1.6 system-ui,sans-serif;max-width:560px;margin:3rem auto;padding:0 1rem">
+<h1>Thế Cờ Hay</h1>
+<p id="m">Đang hoàn tất kết nối TikTok... / Completing TikTok connection...</p>
+<script>
+// Chuyển tiếp mã uỷ quyền về ứng dụng chạy trên máy của chủ sở hữu (localhost); trang này không lưu hay gửi dữ liệu đi nơi khác.
+var q = location.search;
+if (q) location.replace('http://localhost:8787/callback' + q);
+else document.getElementById('m').textContent = 'Trang này nhận kết quả đăng nhập TikTok. / This page receives the TikTok login result.';
+</script></body></html>
