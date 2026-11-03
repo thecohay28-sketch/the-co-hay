@@ -1,1 +1,23 @@
-<!DOCTYPE html><meta charset="utf-8"><title>Thế Cờ Hay</title><p><a href="terms.html">Điều khoản dịch vụ</a> · <a href="privacy.html">Chính sách bảo mật</a></p>
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Thế Cờ Hay</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;max-width:640px;margin:3rem auto;padding:0 1rem;color:#222}button{font:inherit;font-weight:600;padding:.7rem 1.4rem;border:0;border-radius:8px;background:#111;color:#fff;cursor:pointer}small{color:#666}</style></head><body>
+<h1>Thế Cờ Hay</h1>
+<p>Công cụ đăng video cờ tướng ngắn lên tài khoản TikTok của chính chủ sở hữu.<br>
+<small>A personal tool for the owner to publish short Xiangqi videos to the owner's own TikTok account.</small></p>
+<p><button id="connect" type="button">Connect TikTok</button></p>
+<p><small>Bấm để uỷ quyền (Login Kit: user.info.basic, video.publish). Sau khi cho phép, kết quả được chuyển về ứng dụng đăng bài chạy trên máy của chủ sở hữu.<br>
+Click to authorize (Login Kit: user.info.basic, video.publish). After you approve, the result is passed to the posting app running on the owner's own computer.</small></p>
+<p><a href="terms.html">Điều khoản dịch vụ / Terms</a> · <a href="privacy.html">Chính sách bảo mật / Privacy</a></p>
+<script>
+// Client key là thông tin công khai (có trong mọi link đăng nhập); client secret KHÔNG bao giờ để ở trang này.
+var CLIENT_KEY = 'sbaw719mzl58u1u55i'; // khoá sandbox; đổi sang khoá app chính khi app được duyệt
+var PORT = '8799'; // cổng auth.js trên máy chủ sở hữu (AUTH_PORT)
+document.getElementById('connect').addEventListener('click', function () {
+  var rnd = Array.from(crypto.getRandomValues(new Uint8Array(8)), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+  var state = PORT + '-' + rnd;
+  sessionStorage.setItem('tt_state', state);
+  location.href = 'https://www.tiktok.com/v2/auth/authorize/?' + new URLSearchParams({
+    client_key: CLIENT_KEY, scope: 'user.info.basic,video.publish', response_type: 'code',
+    redirect_uri: location.origin + location.pathname.replace(/[^\/]*$/, '') + 'callback.html', state: state
+  });
+});
+</script></body></html>

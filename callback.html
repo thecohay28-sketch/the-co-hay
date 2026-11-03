@@ -7,6 +7,11 @@ var q = location.search;
 var s = new URLSearchParams(q).get('state') || '';
 var m = s.match(/^(\d{2,5})-/);
 var port = m ? m[1] : '8787';
+// Nếu đăng nhập bắt đầu từ nút "Connect TikTok" trên trang chủ thì state phải trùng giá trị đã lưu trong tab này (chống giả mạo)
+var saved = sessionStorage.getItem('tt_state');
+var msg = 'Trang này nhận kết quả đăng nhập TikTok. / This page receives the TikTok login result.';
+if (saved && saved !== s) { msg = 'State không khớp, đã dừng. / State mismatch, stopped.'; q = ''; }
+sessionStorage.removeItem('tt_state');
 if (q) location.replace('http://localhost:' + port + '/callback' + q);
-else document.getElementById('m').textContent = 'Trang này nhận kết quả đăng nhập TikTok. / This page receives the TikTok login result.';
+else document.getElementById('m').textContent = msg;
 </script></body></html>
